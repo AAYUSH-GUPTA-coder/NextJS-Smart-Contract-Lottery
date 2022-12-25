@@ -55,7 +55,7 @@ export default function LotteryEntrance() {
 
     async function updateUIValues() {
         // const entranceFeeFromCall = (await getEntranceFee()).toString()
-        const entranceFeeFromCall = (await getEntranceFee())
+        const entranceFeeFromCall = await getEntranceFee()
         const numPlayersFromCall = await getNumberOfPlayers()
         const recentWinnerFromCall = await getRecentWinner()
         setEntranceFee(entranceFeeFromCall)
@@ -90,8 +90,9 @@ export default function LotteryEntrance() {
         <div>
             Hi from lottery entrance!{" "}
             {raffleAddress ? (
-                <div>
+                <div className="">
                     <button
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-auto"
                         onClick={async function () {
                             await enterRaffle({
                                 onSuccess: handleSuccess,
