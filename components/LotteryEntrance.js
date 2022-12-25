@@ -9,6 +9,7 @@ import { abi, contractAddresses } from "../constants"
 import { useMoralis } from "react-moralis"
 import { useEffect, useState } from "react"
 import { ethers } from "ethers"
+// hook to use useNotification.  it give us little dispatch
 import { useNotification } from "web3uikit"
 
 export default function LotteryEntrance() {
@@ -53,7 +54,8 @@ export default function LotteryEntrance() {
     })
 
     async function updateUIValues() {
-        const entranceFeeFromCall = (await getEntranceFee()).toString()
+        // const entranceFeeFromCall = (await getEntranceFee()).toString()
+        const entranceFeeFromCall = (await getEntranceFee())
         const numPlayersFromCall = await getNumberOfPlayers()
         const recentWinnerFromCall = await getRecentWinner()
         setEntranceFee(entranceFeeFromCall)
@@ -67,6 +69,7 @@ export default function LotteryEntrance() {
         }
     }, [isWeb3Enabled])
 
+    // handleSuccess deals with send transcation to metamask / wallet
     const handleSuccess = async function (tx) {
         await tx.wait(1)
         handleNewNotification(tx)
