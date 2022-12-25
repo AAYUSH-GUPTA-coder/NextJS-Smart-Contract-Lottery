@@ -1,6 +1,11 @@
 // have a function to enter the lottery
+
+// useWeb3Contract : allows us to interact with our smart contract function
 import { useWeb3Contract } from "react-moralis"
+
 import { abi, contractAddresses } from "../constants"
+
+// useMoralis allow us to interact with wallet and getting its data, like chainID, balance , isconnected with the wallet and so on
 import { useMoralis } from "react-moralis"
 import { useEffect, useState } from "react"
 import { ethers } from "ethers"
@@ -9,6 +14,7 @@ import { useNotification } from "web3uikit"
 export default function LotteryEntrance() {
     const { isWeb3Enabled, chainId: chainIdHex } = useMoralis()
     const chainId = parseInt(chainIdHex)
+
     const raffleAddress = chainId in contractAddresses ? contractAddresses[chainId][0] : null
     const [entranceFee, setEntranceFee] = useState("0")
     const [numPlayers, setNumPlayers] = useState("0")
@@ -16,6 +22,7 @@ export default function LotteryEntrance() {
     // dispatch is a little pop-up
     const dispatch = useNotification()
 
+    // using useWeb3Contract package we are interacting with enterRaffle smart contract function.
     const { runContractFunction: enterRaffle } = useWeb3Contract({
         abi: abi,
         contractAddress: raffleAddress,
@@ -91,8 +98,8 @@ export default function LotteryEntrance() {
                     >
                         Enter Raffle
                     </button>
-                    Entrance Fee: {ethers.utils.formatUnits(entranceFee, "ether")} ETH Number of
-                    Players: {numPlayers}
+                    Entrance Fee: {ethers.utils.formatUnits(entranceFee, "ether")}
+                    ETH Number of Players: {numPlayers}
                     Recent Winner: {recentWinner}
                 </div>
             ) : (
